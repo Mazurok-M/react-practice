@@ -1,0 +1,11 @@
+export { default as Sidebar } from './Sidebar/Sidebar';
+export { default as Main } from './Main/Main';
+export { default as Paper } from './Paper/Paper';
+export { default as TutorsList } from './TutorsList/TutorsList';
+export { default as UniversityCard } from './UniversityCard/UniversityCard';
+export { default as Section } from './Section/Section';
+export { default as Button } from './Button/Button';
+export { default as GeneralCardList } from './GeneralCardList/GeneralCardList';
+export { default as TeacherForm } from './Forms/TeacherForm/TeacherForm';
+export { default as WidgetForm } from './Forms/WidgetForm/WidgetForm';
+export { default as Modal } from './Modal/Modal';
