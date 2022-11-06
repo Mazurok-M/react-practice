@@ -1,13 +1,24 @@
 {
   "files": {
-    "main.css": "/react-practice/static/css/main.7acaea2f.css",
-    "main.js": "/react-practice/static/js/main.07d3183d.js",
+    "main.css": "/react-practice/static/css/main.e53375f7.css",
+    "main.js": "/react-practice/static/js/main.314ba03c.js",
+    "static/media/cities.svg": "/react-practice/static/media/cities.7e91992755f9d3b640efb7ac8c2b6491.svg",
+    "static/media/mock-university.svg": "/react-practice/static/media/mock-university.650dfc1db07a57b5376badfdaf40c154.svg",
+    "static/media/faculties-icon.svg": "/react-practice/static/media/faculties-icon.12acb9717b7065272c8041de24eb490c.svg",
+    "static/media/delete.svg": "/react-practice/static/media/delete.677d38a82de5abc1f9234f87ea3bf592.svg",
+    "static/media/dots.svg": "/react-practice/static/media/dots.c67b6b1a00bdf3b3b00b80a55b475208.svg",
+    "static/media/edit.svg": "/react-practice/static/media/edit.1ccf0f6fedc395fb09177a40acb5b5d3.svg",
+    "static/media/mock-user-ava.svg": "/react-practice/static/media/mock-user-ava.dc938224d592de20b85ec3d88f5d791b.svg",
+    "static/media/add.svg": "/react-practice/static/media/add.dcb4b4909419b12dce90addcd79f723a.svg",
+    "static/media/pin.svg": "/react-practice/static/media/pin.8da6e254540f5c534fe27e4d5af9e0f6.svg",
     "index.html": "/react-practice/index.html",
-    "main.7acaea2f.css.map": "/react-practice/static/css/main.7acaea2f.css.map",
-    "main.07d3183d.js.map": "/react-practice/static/js/main.07d3183d.js.map"
+    "static/media/phone.svg": "/react-practice/static/media/phone.c6f983dd4eca048e70183bd671671b90.svg",
+    "static/media/mail.svg": "/react-practice/static/media/mail.fcd39ac88773a1300db151e083154d3e.svg",
+    "main.e53375f7.css.map": "/react-practice/static/css/main.e53375f7.css.map",
+    "main.314ba03c.js.map": "/react-practice/static/js/main.314ba03c.js.map"
   },
   "entrypoints": [
-    "static/css/main.7acaea2f.css",
-    "static/js/main.07d3183d.js"
+    "static/css/main.e53375f7.css",
+    "static/js/main.314ba03c.js"
   ]
 }
