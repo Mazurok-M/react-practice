@@ -15,13 +15,13 @@ const axiosInstance = axios.create({
   },
 });
 
-const postData = async (url, data) => {
-  try {
-    return await axiosInstance.post(`/${url}`, JSON.stringify(data));
-  } catch (error) {
-    return { result: null, error: error };
-  }
-};
+// const postData = async (url, data) => {
+//   try {
+//     return await axiosInstance.post(`/${url}`, JSON.stringify(data));
+//   } catch (error) {
+//     return { result: null, error: error };
+//   }
+// };
 
 const getData = (url) => {
   try {
@@ -31,21 +31,21 @@ const getData = (url) => {
   }
 };
 
-const putData = async (url, data) => {
-  try {
-    return axiosInstance.put(`/${url}`, data);
-  } catch (error) {
-    return { result: null, error: error };
-  }
-};
+// const putData = async (url, data) => {
+//   try {
+//     return axiosInstance.put(`/${url}`, data);
+//   } catch (error) {
+//     return { result: null, error: error };
+//   }
+// };
 
-const deleteData = async (url, data) => {
-  try {
-    return axiosInstance.delete(`/${url}`, data);
-  } catch (error) {
-    return { result: null, error: error };
-  }
-};
+// const deleteData = async (url, data) => {
+//   try {
+//     return axiosInstance.delete(`/${url}`, data);
+//   } catch (error) {
+//     return { result: null, error: error };
+//   }
+// };
 
 export const getTutors = () => {
   return getData(URL.TUTORS);
