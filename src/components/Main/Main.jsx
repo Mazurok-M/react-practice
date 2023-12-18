@@ -1,9 +1,11 @@
-import PropTypes from 'prop-types';
+import PT from 'prop-types';
 
-export default function Main({ children }) {
+const Main = ({ children }) => {
   return <main>{children}</main>;
-}
+};
 
 Main.propTypes = {
-  children: PropTypes.array.isRequired,
+  children: PT.node.isRequired,
 };
+
+export default Main;

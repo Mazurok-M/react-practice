@@ -5,7 +5,7 @@ export const Container = styled.div`
   grid-template-columns: 1fr 1fr 2fr;
 `;
 
-export const ColItem = styled.div`
+export const ColumItem = styled.div`
   display: flex;
   flex-direction: column;
 `;

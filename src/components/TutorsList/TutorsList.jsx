@@ -1,4 +1,4 @@
-import PropTypes from 'prop-types';
+import PT from 'prop-types';
 import TutorItem from './TutorItem/TutorItem';
 
 export default function TutorsList({ tutors }) {
@@ -6,5 +6,5 @@ export default function TutorsList({ tutors }) {
 }
 
 TutorsList.propTypes = {
-  tutors: PropTypes.array.isRequired,
+  tutors: PT.array.isRequired,
 };

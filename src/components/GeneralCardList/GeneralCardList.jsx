@@ -1,24 +1,24 @@
 import GeneralCardItem from './GeneralCardItem/GeneralCardItem';
 
 export default function GeneralCardList({
-  ListData,
+  listData,
   onDeleteCard,
-  onToggleModal,
   isModalOpen,
+  toggleModal,
   onEditCard,
 }) {
   return (
     <div>
-      {ListData.length > 0 &&
-        ListData.map(({ text, relation }) => (
+      {listData.length > 0 &&
+        listData.map(({ text, relation, id }) => (
           <GeneralCardItem
-            key={text}
             text={text}
+            key={text}
             relation={relation}
-            id={text}
+            id={id}
             onDeleteCard={onDeleteCard}
             isModalOpen={isModalOpen}
-            onToggleModal={onToggleModal}
+            onToggleModal={toggleModal}
             onEditCard={onEditCard}
           />
         ))}

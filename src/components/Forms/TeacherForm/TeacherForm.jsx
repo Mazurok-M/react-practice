@@ -1,11 +1,11 @@
-import { Formik, Form, Field, ErrorMessage } from 'formik';
-import { object, string } from 'yup';
 import { Button } from 'components';
+import { Field, Form, Formik, ErrorMessage } from 'formik';
+import { object, string } from 'yup';
 
-const TeacherForm = ({ addTeacher }) => {
+export default function TeacherForm({ addTeacher }) {
   const initialValues = {
-    firstName: '',
     lastName: '',
+    firstName: '',
     patronymic: '',
     phone: '',
     email: '',
@@ -19,20 +19,40 @@ const TeacherForm = ({ addTeacher }) => {
     setSubmitting(false);
   };
 
-  const fieldsData = [
-    { name: 'lastName', label: 'Прізвище' },
-    { name: 'firstName', label: 'Імя' },
-    { name: 'patronymic', label: 'По-батькові' },
-    { name: 'phone', label: 'Телефон' },
-    { name: 'email', label: 'e-mail' },
-    { name: 'city', label: 'Місто' },
+  const fieldData = [
+    {
+      name: 'lastName',
+      label: 'Прізвище',
+    },
+    {
+      name: 'firstName',
+      label: "Ім'я",
+    },
+    {
+      name: 'patronymic',
+      label: 'Побатькові',
+    },
+    {
+      name: 'phone',
+      label: 'Телефон',
+    },
+    {
+      name: 'email',
+      label: 'e-mail',
+    },
+    {
+      name: 'city',
+      label: 'Місто',
+    },
   ];
 
   const validationSchemaForm = object().shape({
-    lastName: string().required('Заповніть це поле'),
-    firstName: string().min(2, 'Мінімум два символи').required(),
-    patronymic: string().required(),
-    phone: string().required(),
+    lastName: string().required('Поле має бути заповнене'),
+    firstName: string()
+      .min(2, 'Мінімум два знаки')
+      .required('Поле має бути заповнене'),
+    patronymic: string().required('Поле має бути заповнене'),
+    phone: string().matches(/^\+[0-9]{3}\s\((\d+)\)\d{7}/, ' +380 (00)0000000'),
     email: string().required(),
     city: string().required(),
   });
@@ -41,13 +61,13 @@ const TeacherForm = ({ addTeacher }) => {
     <Formik
       initialValues={initialValues}
       onSubmit={handleSubmitForm}
-      validatoinSchema={validationSchemaForm}
+      validationSchema={validationSchemaForm}
     >
       {({ values, handleChange, handleBlur }) => (
         <Form>
           <div>
             <h3>Добавити викладача</h3>
-            {fieldsData.map(({ name, label }) => (
+            {fieldData.map(({ name, label }) => (
               <div key={name}>
                 <label htmlFor={name}>{label}</label>
                 <Field
@@ -68,5 +88,4 @@ const TeacherForm = ({ addTeacher }) => {
       )}
     </Formik>
   );
-};
-export default TeacherForm;
+}

@@ -1,11 +1,10 @@
-import React from 'react';
 import { Modal, Paper, WidgetForm } from 'components';
-import dotsImg from '../../../assets/images/dots.svg';
+import dotsIcon from '../../../assets/images/dots.svg';
 
-import s from './GeneralCardItem.module.css';
 import { ReactComponent as EditSvg } from '../../../assets/images/edit.svg';
 import { ReactComponent as RemoveSvg } from '../../../assets/images/delete.svg';
-import { useState } from 'react';
+import css from './GeneralCardItem.module.css';
+import React, { useState } from 'react';
 
 function GeneralCardItem({
   id,
@@ -13,29 +12,30 @@ function GeneralCardItem({
   onDeleteCard,
   isModalOpen,
   onToggleModal,
-  text,
   onEditCard,
+  text,
 }) {
-  const [showModule, setShowModule] = useState(false);
+  const [showModul, setShowModul] = useState(false);
 
-  const toggleModale = () => {
-    setShowModule(!showModule);
+  const togleModul = () => {
+    setShowModul(!showModul);
   };
 
   return (
     <Paper>
       <span>{text}</span>
-      <button onClick={toggleModale}>
-        <img src={dotsImg} alt="dots Menu"></img>
+      <button onClick={togleModul}>
+        <img src={dotsIcon} alt="Dots menu" />
       </button>
-      {showModule && (
-        <div className={s.menuModal}>
+
+      {showModul && (
+        <div className={css.menuModal}>
           <button
-            className={s.menuModal_content}
+            className={css.menuModal_content}
             type="button"
             onClick={() => onToggleModal('editCard')}
           >
-            <EditSvg className={s.menuModal_icon} />
+            <EditSvg className={css.menuModal_icon} />
             Редагувати
           </button>
           {isModalOpen.actionState && isModalOpen.actionName === 'editCard' && (
@@ -43,41 +43,44 @@ function GeneralCardItem({
               children={
                 <WidgetForm
                   idItem={id}
+                  textItem={text}
                   relation={relation}
                   title={
                     relation === 'cities'
-                      ? 'Редагувати інформацію про місто'
-                      : 'Редагувати інформацію про факультет'
+                      ? 'Редагувати інформацію про Місто'
+                      : 'Редагувати інформацію про Факультет'
                   }
                   onSubmit={onEditCard}
                 />
               }
-              toggleModale={onToggleModal}
-            ></Modal>
+              onTogleModal={onToggleModal}
+            />
           )}
           <button
-            className={s.menuModal_content}
+            className={css.menuModal_content}
             type="button"
             onClick={() => onToggleModal('deleteCard')}
+            // onClick={() => onDeleteCard(id, relation)}
           >
-            <RemoveSvg className={s.menuModal_icon} />
+            <RemoveSvg className={css.menuModal_icon} />
             Видалити
           </button>
-          {isModalOpen.actionState && isModalOpen.actionName === 'deleteCard' && (
-            <Modal
-              title="Видалення факультету"
-              children="Будуть видалені всі матеріали та інформація про факультет"
-              actions={
-                <>
-                  <button onClick={() => onToggleModal()}>Ні</button>
-                  <button onClick={() => onDeleteCard(id, relation)}>
-                    Так
-                  </button>
-                </>
-              }
-              toggleModale={onToggleModal}
-            ></Modal>
-          )}
+          {isModalOpen.actionState &&
+            isModalOpen.actionName === 'deleteCard' && (
+              <Modal
+                title={'Видалення факудьтету'}
+                children="Буде видалено всі матеріали та інформація про факультети"
+                onTogleModal={onToggleModal}
+                actions={
+                  <>
+                    <button onClick={() => onToggleModal()}>Ні</button>
+                    <button onClick={() => onDeleteCard(id, relation)}>
+                      Так
+                    </button>
+                  </>
+                }
+              />
+            )}
         </div>
       )}
     </Paper>

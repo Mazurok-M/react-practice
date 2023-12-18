@@ -1,14 +1,14 @@
-import UserImg from '../../assets/images/mock-user-ava.svg';
-import Manu from 'components/Menu/Menu';
+import UserImg from 'assets/images/mock-user-ava.svg';
+import Menu from 'components/Menu/Menu';
 
 const Sidebar = () => {
   return (
     <aside>
       <div className="logo">Logo</div>
-      <Manu />
+      <Menu />
       <div>
         <img src={UserImg} alt="user" />
-        <span>Bill</span>
+        <span>Біл Гейтс</span>
       </div>
     </aside>
   );

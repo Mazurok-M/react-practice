@@ -1,29 +1,33 @@
+import { useCallback, useEffect } from 'react';
+import { ModalStyle, Overlay } from './Modal.styled';
 import { createPortal } from 'react-dom';
-import { useEffect } from 'react';
-
-import { Overlay, ModalStyle } from './Modal.styled';
 
 const modalRoot = document.getElementById('modal-root');
 
-function Modal({ toggleModale, title, children, actions }) {
+function Modal({ title, actions, children, onTogleModal }) {
+  const handleKeyDown = useCallback(
+    function (e) {
+      if (e.code === 'Escape') {
+        onTogleModal();
+      }
+    },
+    [onTogleModal]
+  );
+
   useEffect(() => {
-    const hadleKeyDown = e => {
-      if (e.code === 'Escape') toggleModale();
-    };
+    window.addEventListener('keydown', handleKeyDown);
 
-    window.addEventListener('keydown', hadleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [handleKeyDown]);
 
-    return () => {
-      window.removeEventListener('keydown', hadleKeyDown);
-    };
-  }, [toggleModale]);
-
-  const handleBackDropClick = e => {
-    if (e.currentTarget === e.target) toggleModale();
+  const habdleBackDropClick = e => {
+    if (e.currentTarget === e.target) {
+      onTogleModal();
+    }
   };
 
   return createPortal(
-    <Overlay onClick={handleBackDropClick}>
+    <Overlay onClick={habdleBackDropClick}>
       <ModalStyle>
         <h2>{title}</h2>
         <div>{children}</div>

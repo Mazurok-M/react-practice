@@ -1,15 +1,17 @@
-import PropTypes from 'prop-types';
+import PT from 'prop-types';
 import css from './Paper.module.css';
 
-export default function Paper({ children, classes, ...otherProps }) {
+const Paper = ({ children, classes, ...refProps }) => {
   return (
-    <div className={`${css.paper} ${classes}`} {...otherProps}>
+    <div className={`${css.paper} ${classes}`} {...refProps}>
       {children}
     </div>
   );
-}
+};
 
 Paper.propTypes = {
-  children: PropTypes.node.isRequired,
-  classes: PropTypes.string,
+  children: PT.node.isRequired,
+  classes: PT.string,
 };
+
+export default Paper;

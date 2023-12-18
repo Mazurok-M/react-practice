@@ -1,14 +1,16 @@
-import menuConfig from 'constants/menuConfig';
-import MenuItem from 'components/ManuItem/ManuItem';
+import MenuItem from 'components/MenuItem/MenuItem';
+import { default as menuConfig } from '../../constants/menuConfig';
 
-export default function Manu() {
+const Menu = () => {
   return (
     <nav>
       <ul>
-        {menuConfig.map(({ name, img, href }) => (
+        {menuConfig.map(({ name, href, img }) => (
           <MenuItem key={name} href={href} img={img} name={name} />
         ))}
       </ul>
     </nav>
   );
-}
+};
+
+export default Menu;

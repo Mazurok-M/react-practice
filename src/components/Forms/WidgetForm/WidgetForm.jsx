@@ -1,13 +1,18 @@
-import { Formik, Form, Field, ErrorMessage } from 'formik';
-import { object, string } from 'yup';
 import { Button } from 'components';
+import { ErrorMessage, Field, Form, Formik } from 'formik';
+import { object, string } from 'yup';
 
-const WidgetForm = ({ onSubmit, title, lable, idItem, relation }) => {
-  const initialValueWidgetForm = { name: idItem || '' };
-
-  const validationSchemaForm = object().shape({
-    name: string().min(2),
-  });
+export default function WidgetForm({
+  onSubmit,
+  title,
+  lable,
+  idItem,
+  relation,
+  textItem,
+}) {
+  const initialValueWidgetForm = {
+    name: textItem || '',
+  };
 
   const handleSubmitForm = (values, actions) => {
     actions.setSubmitting(true);
@@ -19,11 +24,15 @@ const WidgetForm = ({ onSubmit, title, lable, idItem, relation }) => {
     actions.setSubmitting(false);
   };
 
+  const validationSchemaForm = object().shape({
+    name: string().min(2).required('Поле має бути заповнене'),
+  });
+
   return (
     <Formik
       initialValues={initialValueWidgetForm}
       onSubmit={handleSubmitForm}
-      validatoinSchema={validationSchemaForm}
+      validationSchema={validationSchemaForm}
     >
       {({ values, handleChange, handleBlur }) => (
         <Form>
@@ -31,19 +40,16 @@ const WidgetForm = ({ onSubmit, title, lable, idItem, relation }) => {
           <Field
             type="text"
             name="name"
-            id="nameCity"
+            id="name"
             placeholder={lable}
-            onChange={handleChange}
             onBlur={handleBlur}
+            onChange={handleChange}
             value={values.name || ''}
           />
           <ErrorMessage name="name" component={'div'} />
-
-          <Button type="submit" text={idItem ? 'Зберегти' : 'Добавити'} />
+          <Button text={idItem ? 'Зберегти' : 'Добавити'} type="submit" />
         </Form>
       )}
     </Formik>
   );
-};
-
-export default WidgetForm;
+}

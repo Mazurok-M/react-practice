@@ -1,12 +1,13 @@
-import { Paper } from 'components';
-import PropTypes from 'prop-types';
+import PT from 'prop-types';
+
+import pinImg from '../../../assets/images/pin.svg';
 import phoneImg from '../../../assets/images/phone.svg';
 import mailImg from '../../../assets/images/mail.svg';
-import pinImg from '../../../assets/images/pin.svg';
 
-import { Container, ColItem } from './TutorItem.styled';
+import { Paper } from 'components';
+import { ColumItem, Container } from './TutorItem.styled';
 
-export default function TutorItem({
+const TutorItem = ({
   firstName,
   lastName,
   patronymic,
@@ -14,43 +15,45 @@ export default function TutorItem({
   email,
   city,
   options,
-}) {
+}) => {
   return (
     <Paper>
       <Container>
-        <ColItem>
+        <ColumItem>
           <span>{firstName}</span>
           <span>{lastName}</span>
           <span>{patronymic}</span>
-        </ColItem>
-        <ColItem>
+        </ColumItem>
+        <ColumItem>
           <span>
-            <img src={phoneImg} alt="Icon" />
+            <img src={phoneImg} alt="phone" />
             {phone}
           </span>
           <span>
-            <img src={mailImg} alt="Icon" />
+            <img src={mailImg} alt="mail" />
             {email}
           </span>
           <span>
-            <img src={pinImg} alt="Icon" />
+            <img src={pinImg} alt="pin" />
             {city}
           </span>
-        </ColItem>
-        <ColItem>
+        </ColumItem>
+        <ColumItem>
           <p>{options}</p>
-        </ColItem>
+        </ColumItem>
       </Container>
     </Paper>
   );
-}
-
-TutorItem.protoTypes = {
-  firstName: PropTypes.string.isRequired,
-  lastName: PropTypes.string.isRequired,
-  patronymic: PropTypes.string.isRequired,
-  phone: PropTypes.string.isRequired,
-  email: PropTypes.string.isRequired,
-  city: PropTypes.string.isRequired,
-  options: PropTypes.string,
 };
+
+TutorItem.propTypes = {
+  firstName: PT.string.isRequired,
+  lastName: PT.string.isRequired,
+  patronymic: PT.string.isRequired,
+  phone: PT.string.isRequired,
+  email: PT.string.isRequired,
+  city: PT.string.isRequired,
+  options: PT.string,
+};
+
+export default TutorItem;
