@@ -47,11 +47,12 @@ const deleteData = async (url, data) => {
   }
 };
 
+// ---------------------
 export const getTutors = () => {
   return getData(URL.TUTORS);
 };
 
-export const getCitites = () => {
+export const getCities = () => {
   return getData(URL.CITIES);
 };
 
@@ -59,9 +60,9 @@ export const getCitites = () => {
 //   return getData(`${URL.CITIES}/${id}`);
 // };
 
-export const getDepartments = () => {
-  return getData(URL.DEPARTMENTS);
-};
+// export const getDepartments = () => {
+//   return getData(URL.DEPARTMENTS);
+// };
 
 export const postCity = (data) => {
   return postData(URL.CITIES, data);
@@ -75,8 +76,16 @@ export const deleteCity = (id) => {
   return deleteData(`${URL.CITIES}/${id}`);
 };
 
+export const deleteTutor = (id) => {
+  return deleteData(`${URL.TUTORS}/${id}`);
+};
+
 export const updateCity = (id, data) => {
   return putData(`${URL.CITIES}/${id}`, data);
+};
+
+export const updateTutor = (id, data) => {
+  return putData(`${URL.TUTORS}/${id}`, data);
 };
 // -------------------------------------------------
 
@@ -86,6 +95,14 @@ const axiosInstanceDepartment = axios.create({
     "Content-Type": "aplication/json",
   },
 });
+
+const getDataDepartment = (url) => {
+  try {
+    return axiosInstanceDepartment.get(`/${url}`);
+  } catch (error) {
+    return { result: null, error: error };
+  }
+};
 
 const deleteDataDepartment = async (url, data) => {
   try {
@@ -101,6 +118,10 @@ const putDataDepartment = async (url, data) => {
   } catch (error) {
     return { result: null, error: error };
   }
+};
+
+export const getDepartments = () => {
+  return getDataDepartment(URL.DEPARTMENTS);
 };
 
 export const deleteDepartment = (id) => {

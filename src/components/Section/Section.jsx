@@ -23,7 +23,7 @@ export default function Section({
 
 Section.propTypes = {
   img: PT.string,
-  nameTitle: PT.string.isRequired,
+  nameTitle: PT.string,
   positionRight: PT.bool,
   children: PT.node.isRequired,
 };

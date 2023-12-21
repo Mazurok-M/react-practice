@@ -5,6 +5,7 @@ import { ReactComponent as EditSvg } from '../../../assets/images/edit.svg';
 import { ReactComponent as RemoveSvg } from '../../../assets/images/delete.svg';
 import css from './GeneralCardItem.module.css';
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 function GeneralCardItem({
   id,
@@ -15,14 +16,20 @@ function GeneralCardItem({
   onEditCard,
   text,
 }) {
+  const navigate = useNavigate();
+
   const [showModul, setShowModul] = useState(false);
 
   const togleModul = () => {
     setShowModul(!showModul);
   };
 
+  const onClickPaper = () => {
+    if (relation !== 'dapartments') return;
+    navigate(`/dapartments/${id}`);
+  };
   return (
-    <Paper>
+    <Paper onClick={onClickPaper}>
       <span>{text}</span>
       <button onClick={togleModul}>
         <img src={dotsIcon} alt="Dots menu" />

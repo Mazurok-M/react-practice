@@ -1,162 +1,71 @@
-import { useEffect, useState } from "react";
-import {
-  Main,
-  Paper,
-  Section,
-  Sidebar,
-  TutorsList,
-  UniversityCard,
-  Button,
-  GeneralCardList,
-  TeacherForm,
-  WidgetForm,
-} from "../components";
-import Forms from "constants/forms";
-import universityData from "../constants/universityData.json";
-import teatherImg from "../assets/images/teachers-emoji.png";
-import addIcon from "../assets/images/add.svg";
-import citiesImg from "../assets/images/cities.svg";
-import facultiesImg from "../assets/images/faculties-icon.svg";
-import axios from "axios";
+import { Suspense, lazy, useEffect, useState } from 'react';
+import { Main, Sidebar } from '../components';
+
+import axios from 'axios';
 import {
   deleteCity,
   deleteDepartment,
-  getCitites,
-  getTutors,
   postCity,
   postTutor,
   updateCity,
   updateDepartmen,
-} from "./Api/defaultApi";
+} from './Api/defaultApi';
+import { useTutorsApi } from 'hooks/useTutorsApi';
+import { useCitiesApi } from 'hooks/useCitiesApi';
+import { useDepartmentsApi } from 'hooks/useDepartmentsApi';
 
-const BASE_URL = "https://657b0bbe394ca9e4af137bc7.mockapi.io";
-axios.defaults.baseURL = BASE_URL;
+import { Route, Routes, useLocation, useNavigate } from 'react-router-dom';
+
+// const BASE_URL = 'https://657b0bbe394ca9e4af137bc7.mockapi.io';
+// axios.defaults.baseURL = BASE_URL;
+
+const University = lazy(() => import('pages/University/University'));
+const Department = lazy(() => import('pages/Department/Department'));
+const DepartmentDetalis = lazy(() =>
+  import('pages/DepartmentDetalis/DepartmentDetalis')
+);
+const DepartmentDescription = lazy(() =>
+  import('pages/DepartmentDescription/DepartmentDescription')
+);
+const DepartmentHistory = lazy(() =>
+  import('pages/DepartmentHistory/DepartmentHistory')
+);
 
 function App() {
-  const [cities, setCities] = useState([]);
-  const [departments, setDepartments] = useState([]);
-  const [tutors, setTutors] = useState([]);
   const [showForm, setShowForm] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState({
     actionName: null,
     actionState: false,
   });
 
-  useEffect(() => {
-    getTutors().then(({ data: tutors }) => {
-      localStorage.setItem("tutors", JSON.stringify(tutors));
-      const getTutorsFromLocalStorage = JSON.parse(
-        localStorage.getItem("tutors")
-      );
-      getTutorsFromLocalStorage
-        ? setTutors(getTutorsFromLocalStorage)
-        : setTutors([]);
-    });
-  }, []);
+  const [tutors, setTutors] = useTutorsApi();
+  const [cities, setCities] = useCitiesApi();
+  const [departments, setDepartments] = useDepartmentsApi();
 
-  useEffect(() => {
-    getCitites().then(({ data: cities }) => {
-      localStorage.setItem(
-        "cities",
-        JSON.stringify(
-          cities.map(({ text, id }) => ({
-            id,
-            text,
-            relation: "cities",
-          }))
-        )
-      );
-    });
+  const onEdit = () => console.log('edit');
+  const onDelete = () => console.log('delete');
 
-    const getCitiesFromLocalStorage = JSON.parse(
-      localStorage.getItem("cities")
-    );
-
-    getCitiesFromLocalStorage
-      ? setCities(getCitiesFromLocalStorage)
-      : setCities([]);
-  }, []);
-
-  useEffect(() => {
-    axios
-      .get("https://657b164a394ca9e4af13a6a0.mockapi.io/api/v1/departments")
-      .then(({ data: department }) => {
-        localStorage.setItem(
-          "departments",
-          JSON.stringify(
-            department.map(({ name, id }) => ({
-              id,
-              text: name,
-              relation: "departments",
-            }))
-          )
-        );
-      });
-
-    const getDepartmentsFromLocalStorage = JSON.parse(
-      localStorage.getItem("departments")
-    );
-
-    getDepartmentsFromLocalStorage
-      ? setDepartments(getDepartmentsFromLocalStorage)
-      : setDepartments([]);
-  }, []);
-
-  // state = {
-  //   cities:
-  //     universityData?.cities.map(city => ({
-  //       text: city,
-  //       relation: 'cities',
-  //     })) ?? [],
-  //   departments:
-  //     universityData?.department.map(({ name }) => ({
-  //       text: name,
-  //       relation: 'departments',
-  //     })) ?? [],
-  //   tutors: universityData?.tutors ?? [],
-  //   showForm: null,
-  //   isModalOpen: {
-  //     actionName: null,
-  //     actionState: false,
-  //   },
-  // };
-
-  const onEdit = () => console.log("edit");
-  const onDelete = () => console.log("delete");
-
-  const toggleModal = (actionName) => {
-    setIsModalOpen((prev) => ({
+  const toggleModal = actionName => {
+    setIsModalOpen(prev => ({
       actionName: prev.actionName === actionName ? null : actionName,
       actionState: !prev.actionState,
     }));
-
-    // this.setState(prev => ({
-    //   isModalOpen: {
-    //     actionName:
-    //       prev.isModalOpen.actionName === actionName ? null : actionName,
-    //     actionState: !prev.isModalOpen.actionState,
-    //   },
-    // }));
   };
 
-  const handleShowForm = (formName) => {
-    setShowForm((prev) => (prev === formName ? null : formName));
-
-    // this.setState(prev => ({
-    //   showForm: prev.showForm === formName ? null : formName,
-    // }));
+  const handleShowForm = formName => {
+    setShowForm(prev => (prev === formName ? null : formName));
   };
 
   const handleDeleteCard = (id, relation) => {
-    if (relation === "cities") {
-      deleteCity(id).then((res) => {
-        const newCitiesArray = cities.filter((el) => el.id !== res.data.id);
+    if (relation === 'cities') {
+      deleteCity(id).then(res => {
+        const newCitiesArray = cities.filter(el => el.id !== res.data.id);
         setCities(newCitiesArray);
       });
     } else {
-      deleteDepartment(id).then((res) => {
+      deleteDepartment(id).then(res => {
         const newDepartmentsArray = departments.filter(
-          (el) => el.id !== res.data.id
+          el => el.id !== res.data.id
         );
         setDepartments(newDepartmentsArray);
       });
@@ -164,25 +73,25 @@ function App() {
     toggleModal();
   };
 
-  const handleEditCard = (data) => {
+  const handleEditCard = data => {
     console.log(data);
     const { id, relation, name } = data;
-    if (relation === "cities") {
-      updateCity(id, { id, text: name }).then((res) => {
+    if (relation === 'cities') {
+      updateCity(id, { id, text: name }).then(res => {
         console.log(res);
-        const indexCities = cities.findIndex((item) => item.id === res.data.id);
-        setCities((prev) => [
+        const indexCities = cities.findIndex(item => item.id === res.data.id);
+        setCities(prev => [
           ...prev.slice(0, indexCities),
           { id: res.data.id, text: res.data.text, relation },
           ...prev.slice(indexCities + 1),
         ]);
       });
     } else {
-      updateDepartmen(id, { id, name }).then((res) => {
+      updateDepartmen(id, { id, name }).then(res => {
         const indexDepartments = departments.findIndex(
-          (item) => item.id === res.data.id
+          item => item.id === res.data.id
         );
-        setDepartments((prev) => [
+        setDepartments(prev => [
           ...prev.slice(0, indexDepartments),
           { id: res.data.id, text: res.data.name, relation },
           ...prev.slice(indexDepartments + 1),
@@ -190,150 +99,117 @@ function App() {
       });
     }
     toggleModal();
-
-    // const elemIndex = this.state[relation].findIndex(item => item.text === id);
-
-    // this.setState(prev => ({
-    //   [relation]: [
-    //     ...prev[relation].slice(0, elemIndex),
-    //     { text: name, relation },
-    //     ...prev[relation].slice(elemIndex + 1),
-    //   ],
-    // }));
   };
 
-  const addTeacher = (teacher) => {
+  const addTeacher = teacher => {
     postTutor(teacher).then(({ data }) => {
-      setTutors((prev) => [...prev, data]);
+      setTutors(prev => [...prev, data]);
     });
     // setTutors(prev => [...prev, teacher]);
     setShowForm(null);
   };
 
-  const addCity = (cityName) => {
+  const addCity = cityName => {
     postCity({ text: cityName }).then(({ data }) => {
       const newCity = {
         ...data,
-        relation: "cities",
+        relation: 'cities',
       };
 
       if (
         !cities.some(
-          (city) => city.text.toLowerCase() === newCity.text.toLowerCase()
+          city => city.text.toLowerCase() === newCity.text.toLowerCase()
         )
       ) {
-        setCities((prev) => [...prev, newCity]);
+        setCities(prev => [...prev, newCity]);
       } else {
-        alert("Місто вже додано");
+        alert('Місто вже додано');
       }
     });
   };
 
-  const addDepartment = (departmentName) => {
+  const addDepartment = departmentName => {
     axios
-      .post("/departments", { name: departmentName })
+      .post('/departments', { name: departmentName })
       .then(({ data: { id, name } }) => {
         const newDepartment = {
           id,
           text: name,
-          relation: "departments",
+          relation: 'departments',
         };
 
         if (
           !departments.some(
-            (department) =>
+            department =>
               department.text.toLowerCase() === newDepartment.text.toLowerCase()
           )
         ) {
-          setDepartments((prev) => [...prev, newDepartment]);
+          setDepartments(prev => [...prev, newDepartment]);
         } else {
-          alert("Департамент вже додано");
+          alert('Департамент вже додано');
         }
       });
   };
+  const navigate = useNavigate();
+  const { pathname } = useLocation();
+
+  useEffect(() => {
+    if (pathname === '/') {
+      navigate('university');
+    }
+  }, [navigate, pathname]);
 
   return (
     <div className="app">
       <Sidebar />
       <Main>
-        <Section nameTitle="Інформація про унівеситет" positionRight isColumn>
-          <UniversityCard
-            name={universityData.name}
-            onEdit={onEdit}
-            onDelete={onDelete}
-          />
-          <Paper>
-            <span>{universityData.description}</span>
-          </Paper>
-        </Section>
-
-        <Section nameTitle="Викладачі" img={teatherImg}>
-          <TutorsList tutors={tutors} />
-          {showForm === Forms.TEACHER_FORM && (
-            <TeacherForm addTeacher={addTeacher} />
-          )}
-
-          <Button
-            text={
-              showForm === Forms.TEACHER_FORM
-                ? "Закрити форму"
-                : "Додати викладача"
-            }
-            buttonIcon={addIcon}
-            btnAction={() => handleShowForm(Forms.TEACHER_FORM)}
-          />
-        </Section>
-
-        <Section nameTitle="Міста" img={citiesImg}>
-          <GeneralCardList
-            listData={cities}
-            onDeleteCard={handleDeleteCard}
-            isModalOpen={isModalOpen}
-            toggleModal={toggleModal}
-            onEditCard={handleEditCard}
-          />
-          {showForm === Forms.CITY_FORM && (
-            <WidgetForm
-              title="Додавання міста"
-              lable="Місто"
-              onSubmit={addCity}
+        <Suspense fallback={<h1>Loading....</h1>}>
+          <Routes>
+            <Route
+              path="university"
+              element={
+                <University
+                  onEdit={onEdit}
+                  onDelete={onDelete}
+                  showForm={showForm}
+                  addTeacher={addTeacher}
+                  tutors={tutors}
+                  cities={cities}
+                  handleDeleteCard={handleDeleteCard}
+                  isModalOpen={isModalOpen}
+                  toggleModal={toggleModal}
+                  handleEditCard={handleEditCard}
+                  addCity={addCity}
+                  handleShowForm={handleShowForm}
+                />
+              }
             />
-          )}
-
-          <Button
-            text={
-              showForm === Forms.CITY_FORM ? "Закрити форму" : "Додати місто"
-            }
-            buttonIcon={addIcon}
-            btnAction={() => handleShowForm(Forms.CITY_FORM)}
-          />
-        </Section>
-
-        <Section nameTitle="Факультети" img={facultiesImg}>
-          <GeneralCardList
-            listData={departments}
-            onDeleteCard={handleDeleteCard}
-            isModalOpen={isModalOpen}
-            toggleModal={toggleModal}
-            onEditCard={handleEditCard}
-          />
-          {showForm === Forms.DEPARTMENTS_FORM && (
-            <WidgetForm
-              title="Додавання філіалу"
-              lable="Філіал"
-              onSubmit={addDepartment}
-            />
-          )}
-          <Button
-            text={
-              showForm === Forms.DEPARTMENTS_FORM
-                ? "Закрити форму"
-                : "Додати факультет"
-            }
-            buttonIcon={addIcon}
-            btnAction={() => handleShowForm(Forms.DEPARTMENTS_FORM)}
-          />
-        </Section>
+            <Route path="departments/*">
+              <Route
+                index
+                element={
+                  <Department
+                    departments={departments}
+                    showForm={showForm}
+                    handleDeleteCard={handleDeleteCard}
+                    isModalOpen={isModalOpen}
+                    toggleModal={toggleModal}
+                    handleEditCard={handleEditCard}
+                    addDepartment={addDepartment}
+                    handleShowForm={handleShowForm}
+                  />
+                }
+              />
+              <Route
+                path={':departmentId'}
+                element={<DepartmentDetalis departments={departments} />}
+              >
+                <Route path="description" element={<DepartmentDescription />} />
+                <Route path="history" element={<DepartmentHistory />} />
+              </Route>
+            </Route>
+          </Routes>
+        </Suspense>
       </Main>
     </div>
   );
