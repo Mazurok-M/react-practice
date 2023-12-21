@@ -1,0 +1,2 @@
+"use strict";(self.webpackChunkreact_practice=self.webpackChunkreact_practice||[]).push([[159],{9159:function(i,r,e){e.r(r),e.d(r,{default:function(){return c}});var t=e(7689),s=e(184);function c(){var i=(0,t.UO)().departmentId;return(0,s.jsxs)("div",{children:[(0,s.jsxs)("h1",{children:["DepartmentHistory ",i]}),(0,s.jsxs)("ul",{children:[(0,s.jsx)("li",{children:"histori 1"}),(0,s.jsx)("li",{children:"histori 2"}),(0,s.jsx)("li",{children:"histori 3"}),(0,s.jsx)("li",{children:"histori 4"})]})]})}}}]);
+//# sourceMappingURL=159.6864bab0.chunk.js.map
