@@ -19,8 +19,8 @@ export default function University({
   onEdit,
   onDelete,
   showForm,
-  addTeacher,
-  tutors,
+  // addTeacher,
+  // tutors,
   cities,
   handleDeleteCard,
   isModalOpen,
@@ -28,6 +28,7 @@ export default function University({
   handleEditCard,
   addCity,
   handleShowForm,
+  setShowForm,
 }) {
   return (
     <>
@@ -42,9 +43,9 @@ export default function University({
         </Paper>
       </Section>
       <Section nameTitle="Викладачі" img={teatherImg}>
-        <TutorsList tutors={tutors} />
+        <TutorsList />
         {showForm === Forms.TEACHER_FORM && (
-          <TeacherForm addTeacher={addTeacher} />
+          <TeacherForm setShowForm={setShowForm} />
         )}
 
         <Button

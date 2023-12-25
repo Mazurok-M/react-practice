@@ -17,6 +17,7 @@ const axiosInstance = axios.create({
 
 const postData = async (url, data) => {
   try {
+    console.log(JSON.stringify(data));
     return await axiosInstance.post(`/${url}`, JSON.stringify(data));
   } catch (error) {
     return { result: null, error: error };

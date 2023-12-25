@@ -6,11 +6,10 @@ import {
   deleteCity,
   deleteDepartment,
   postCity,
-  postTutor,
   updateCity,
   updateDepartmen,
 } from './Api/defaultApi';
-import { useTutorsApi } from 'hooks/useTutorsApi';
+
 import { useCitiesApi } from 'hooks/useCitiesApi';
 import { useDepartmentsApi } from 'hooks/useDepartmentsApi';
 
@@ -38,7 +37,7 @@ function App() {
     actionState: false,
   });
 
-  const [tutors, setTutors] = useTutorsApi();
+  // const [tutors, setTutors] = useTutorsApi();
   const [cities, setCities] = useCitiesApi();
   const [departments, setDepartments] = useDepartmentsApi();
 
@@ -101,13 +100,13 @@ function App() {
     toggleModal();
   };
 
-  const addTeacher = teacher => {
-    postTutor(teacher).then(({ data }) => {
-      setTutors(prev => [...prev, data]);
-    });
-    // setTutors(prev => [...prev, teacher]);
-    setShowForm(null);
-  };
+  // const addTeacher = teacher => {
+  //   postTutor(teacher).then(({ data }) => {
+  //     setTutors(prev => [...prev, data]);
+  //   });
+  //   setTutors(prev => [...prev, teacher]);
+  //   setShowForm(null);
+  // };
 
   const addCity = cityName => {
     postCity({ text: cityName }).then(({ data }) => {
@@ -172,8 +171,9 @@ function App() {
                   onEdit={onEdit}
                   onDelete={onDelete}
                   showForm={showForm}
-                  addTeacher={addTeacher}
-                  tutors={tutors}
+                  setShowForm={setShowForm}
+                  // addTeacher={addTeacher}
+                  // tutors={tutors}
                   cities={cities}
                   handleDeleteCard={handleDeleteCard}
                   isModalOpen={isModalOpen}

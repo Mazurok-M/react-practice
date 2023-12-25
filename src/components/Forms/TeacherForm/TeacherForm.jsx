@@ -1,8 +1,12 @@
 import { Button } from 'components';
 import { Field, Form, Formik, ErrorMessage } from 'formik';
+import { useDispatch } from 'react-redux';
+import { createTeacherAction } from 'store/tutors/actions';
 import { object, string } from 'yup';
 
-export default function TeacherForm({ addTeacher }) {
+export default function TeacherForm({ setShowForm }) {
+  const dispatch = useDispatch();
+
   const initialValues = {
     lastName: '',
     firstName: '',
@@ -14,7 +18,9 @@ export default function TeacherForm({ addTeacher }) {
 
   const handleSubmitForm = (values, { setSubmitting, resetForm }) => {
     setSubmitting(true);
-    addTeacher(values);
+    dispatch(createTeacherAction(values));
+    setShowForm(null);
+    // addTeacher(values);
     resetForm();
     setSubmitting(false);
   };
