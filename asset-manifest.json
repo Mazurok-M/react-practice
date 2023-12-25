@@ -1,10 +1,10 @@
 {
   "files": {
     "main.css": "/react-practice/static/css/main.4ab88cc8.css",
-    "main.js": "/react-practice/static/js/main.b5e2600e.js",
-    "static/js/274.05b205d4.chunk.js": "/react-practice/static/js/274.05b205d4.chunk.js",
-    "static/js/465.77c7684b.chunk.js": "/react-practice/static/js/465.77c7684b.chunk.js",
-    "static/js/997.5e143e9d.chunk.js": "/react-practice/static/js/997.5e143e9d.chunk.js",
+    "main.js": "/react-practice/static/js/main.a13b6117.js",
+    "static/js/274.7ba6b509.chunk.js": "/react-practice/static/js/274.7ba6b509.chunk.js",
+    "static/js/465.64bf4cdc.chunk.js": "/react-practice/static/js/465.64bf4cdc.chunk.js",
+    "static/js/997.0fa27d9e.chunk.js": "/react-practice/static/js/997.0fa27d9e.chunk.js",
     "static/js/961.991a799d.chunk.js": "/react-practice/static/js/961.991a799d.chunk.js",
     "static/js/159.6864bab0.chunk.js": "/react-practice/static/js/159.6864bab0.chunk.js",
     "static/media/cities.svg": "/react-practice/static/media/cities.7e91992755f9d3b640efb7ac8c2b6491.svg",
@@ -20,15 +20,15 @@
     "static/media/phone.svg": "/react-practice/static/media/phone.c6f983dd4eca048e70183bd671671b90.svg",
     "static/media/mail.svg": "/react-practice/static/media/mail.fcd39ac88773a1300db151e083154d3e.svg",
     "main.4ab88cc8.css.map": "/react-practice/static/css/main.4ab88cc8.css.map",
-    "main.b5e2600e.js.map": "/react-practice/static/js/main.b5e2600e.js.map",
-    "274.05b205d4.chunk.js.map": "/react-practice/static/js/274.05b205d4.chunk.js.map",
-    "465.77c7684b.chunk.js.map": "/react-practice/static/js/465.77c7684b.chunk.js.map",
-    "997.5e143e9d.chunk.js.map": "/react-practice/static/js/997.5e143e9d.chunk.js.map",
+    "main.a13b6117.js.map": "/react-practice/static/js/main.a13b6117.js.map",
+    "274.7ba6b509.chunk.js.map": "/react-practice/static/js/274.7ba6b509.chunk.js.map",
+    "465.64bf4cdc.chunk.js.map": "/react-practice/static/js/465.64bf4cdc.chunk.js.map",
+    "997.0fa27d9e.chunk.js.map": "/react-practice/static/js/997.0fa27d9e.chunk.js.map",
     "961.991a799d.chunk.js.map": "/react-practice/static/js/961.991a799d.chunk.js.map",
     "159.6864bab0.chunk.js.map": "/react-practice/static/js/159.6864bab0.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.4ab88cc8.css",
-    "static/js/main.b5e2600e.js"
+    "static/js/main.a13b6117.js"
   ]
 }
