@@ -3,17 +3,32 @@ import facultiesImg from '../../assets/images/faculties-icon.svg';
 import addIcon from '../../assets/images/add.svg';
 import Forms from 'constants/forms';
 
+import { useDispatch, useSelector } from 'react-redux';
+import { allDepatmentsSelector } from 'store/departaments/departamentsSlice';
+import { useEffect } from 'react';
+import {
+  addDepartamentOperation,
+  fetchAllDepartaments,
+} from 'store/departaments/departamentsOperation';
+
 export default function Department({
-  departments,
+  // departments,
 
   showForm,
   handleDeleteCard,
   isModalOpen,
   toggleModal,
   handleEditCard,
-  addDepartment,
+  // addDepartment,
   handleShowForm,
 }) {
+  const dispatch = useDispatch();
+  const departments = useSelector(allDepatmentsSelector);
+
+  useEffect(() => {
+    dispatch(fetchAllDepartaments());
+  }, [dispatch]);
+
   return (
     <>
       <Section nameTitle="Факультети" img={facultiesImg}>
@@ -28,7 +43,7 @@ export default function Department({
           <WidgetForm
             title="Додавання філіалу"
             lable="Філіал"
-            onSubmit={addDepartment}
+            onSubmit={addDepartamentOperation}
           />
         )}
         <Button

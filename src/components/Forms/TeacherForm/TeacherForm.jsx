@@ -1,7 +1,8 @@
 import { Button } from 'components';
 import { Field, Form, Formik, ErrorMessage } from 'formik';
 import { useDispatch } from 'react-redux';
-import { createTeacherAction } from 'store/tutors/actions';
+
+import { addTutorOperation } from 'store/tutors/tutorsOperation';
 import { object, string } from 'yup';
 
 export default function TeacherForm({ setShowForm }) {
@@ -18,9 +19,8 @@ export default function TeacherForm({ setShowForm }) {
 
   const handleSubmitForm = (values, { setSubmitting, resetForm }) => {
     setSubmitting(true);
-    dispatch(createTeacherAction(values));
+    dispatch(addTutorOperation(values));
     setShowForm(null);
-    // addTeacher(values);
     resetForm();
     setSubmitting(false);
   };

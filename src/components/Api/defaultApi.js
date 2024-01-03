@@ -1,6 +1,6 @@
-import axios from "axios";
+import axios from 'axios';
 
-const BASE_URL = "https://657b0bbe394ca9e4af137bc7.mockapi.io/api/v1";
+const BASE_URL = 'https://657b0bbe394ca9e4af137bc7.mockapi.io/api/v1';
 
 const URL = {
   DEPARTMENTS: `departments`,
@@ -10,14 +10,11 @@ const URL = {
 
 const axiosInstance = axios.create({
   baseURL: BASE_URL,
-  headers: {
-    "Content-Type": "aplication/json",
-  },
+  headers: { 'Content-Type': 'application/json' },
 });
 
 const postData = async (url, data) => {
   try {
-    console.log(JSON.stringify(data));
     return await axiosInstance.post(`/${url}`, JSON.stringify(data));
   } catch (error) {
     return { result: null, error: error };
@@ -92,9 +89,7 @@ export const updateTutor = (id, data) => {
 
 const axiosInstanceDepartment = axios.create({
   baseURL: `https://657b164a394ca9e4af13a6a0.mockapi.io/api/v1/`,
-  headers: {
-    "Content-Type": "aplication/json",
-  },
+  headers: { 'Content-Type': 'application/json' },
 });
 
 const getDataDepartment = (url) => {
@@ -108,6 +103,14 @@ const getDataDepartment = (url) => {
 const deleteDataDepartment = async (url, data) => {
   try {
     return axiosInstanceDepartment.delete(`/${url}`, data);
+  } catch (error) {
+    return { result: null, error: error };
+  }
+};
+
+const postDataDepartment = async (url, data) => {
+  try {
+    return await axiosInstanceDepartment.post(`/${url}`, JSON.stringify(data));
   } catch (error) {
     return { result: null, error: error };
   }
@@ -131,4 +134,8 @@ export const deleteDepartment = (id) => {
 
 export const updateDepartmen = (id, data) => {
   return putDataDepartment(`${URL.DEPARTMENTS}/${id}`, data);
+};
+
+export const postDepartment = (data) => {
+  return postDataDepartment(URL.DEPARTMENTS, data);
 };

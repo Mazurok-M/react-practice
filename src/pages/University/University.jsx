@@ -14,30 +14,31 @@ import teatherImg from '../../assets/images/teachers-emoji.png';
 import citiesImg from '../../assets/images/cities.svg';
 import addIcon from '../../assets/images/add.svg';
 import Forms from 'constants/forms';
+import { useDispatch, useSelector } from 'react-redux';
+import { useEffect } from 'react';
+
+import { allCities } from 'store/cities/citiesSlice';
+import { addCityOperation, fetchAllCities } from 'store/cities/operations';
 
 export default function University({
-  onEdit,
-  onDelete,
   showForm,
-  // addTeacher,
-  // tutors,
-  cities,
-  handleDeleteCard,
   isModalOpen,
   toggleModal,
-  handleEditCard,
-  addCity,
   handleShowForm,
   setShowForm,
 }) {
+  const cities = useSelector(allCities);
+
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(fetchAllCities());
+  }, [dispatch]);
+
   return (
     <>
       <Section nameTitle="Інформація про унівеситет" positionRight isColumn>
-        <UniversityCard
-          name={universityData.name}
-          onEdit={onEdit}
-          onDelete={onDelete}
-        />
+        <UniversityCard name={universityData.name} />
         <Paper>
           <span>{universityData.description}</span>
         </Paper>
@@ -61,16 +62,14 @@ export default function University({
       <Section nameTitle="Міста" img={citiesImg}>
         <GeneralCardList
           listData={cities}
-          onDeleteCard={handleDeleteCard}
           isModalOpen={isModalOpen}
           toggleModal={toggleModal}
-          onEditCard={handleEditCard}
         />
         {showForm === Forms.CITY_FORM && (
           <WidgetForm
             title="Додавання міста"
             lable="Місто"
-            onSubmit={addCity}
+            onSubmit={addCityOperation}
           />
         )}
 

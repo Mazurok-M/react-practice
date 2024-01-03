@@ -13,7 +13,7 @@ export default function GeneralCardList({
         listData.map(({ text, relation, id }) => (
           <GeneralCardItem
             text={text}
-            key={text}
+            key={id}
             relation={relation}
             id={id}
             onDeleteCard={onDeleteCard}

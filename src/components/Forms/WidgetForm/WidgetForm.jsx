@@ -1,5 +1,6 @@
 import { Button } from 'components';
 import { ErrorMessage, Field, Form, Formik } from 'formik';
+import { useDispatch } from 'react-redux';
 import { object, string } from 'yup';
 
 export default function WidgetForm({
@@ -9,17 +10,20 @@ export default function WidgetForm({
   idItem,
   relation,
   textItem,
+  togleModul,
 }) {
   const initialValueWidgetForm = {
     name: textItem || '',
   };
+  const dispatch = useDispatch();
 
   const handleSubmitForm = (values, actions) => {
     actions.setSubmitting(true);
     const data = idItem
       ? { id: idItem, relation, name: values.name }
       : values.name;
-    onSubmit(data);
+    dispatch(onSubmit(data));
+    togleModul();
     actions.resetForm();
     actions.setSubmitting(false);
   };

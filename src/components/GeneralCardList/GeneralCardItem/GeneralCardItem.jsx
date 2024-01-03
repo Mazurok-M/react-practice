@@ -6,17 +6,19 @@ import { ReactComponent as RemoveSvg } from '../../../assets/images/delete.svg';
 import css from './GeneralCardItem.module.css';
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import {
+  deleteCityOperation,
+  editCityOperation,
+} from 'store/cities/operations';
+import {
+  deleteDepartamentOperation,
+  editDepartamentOperation,
+} from 'store/departaments/departamentsOperation';
 
-function GeneralCardItem({
-  id,
-  relation,
-  onDeleteCard,
-  isModalOpen,
-  onToggleModal,
-  onEditCard,
-  text,
-}) {
+function GeneralCardItem({ id, relation, isModalOpen, onToggleModal, text }) {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const [showModul, setShowModul] = useState(false);
 
@@ -57,7 +59,12 @@ function GeneralCardItem({
                       ? 'Редагувати інформацію про Місто'
                       : 'Редагувати інформацію про Факультет'
                   }
-                  onSubmit={onEditCard}
+                  onSubmit={
+                    relation === 'cities'
+                      ? editCityOperation
+                      : editDepartamentOperation
+                  }
+                  togleModul={togleModul}
                 />
               }
               onTogleModal={onToggleModal}
@@ -67,7 +74,6 @@ function GeneralCardItem({
             className={css.menuModal_content}
             type="button"
             onClick={() => onToggleModal('deleteCard')}
-            // onClick={() => onDeleteCard(id, relation)}
           >
             <RemoveSvg className={css.menuModal_icon} />
             Видалити
@@ -81,7 +87,14 @@ function GeneralCardItem({
                 actions={
                   <>
                     <button onClick={() => onToggleModal()}>Ні</button>
-                    <button onClick={() => onDeleteCard(id, relation)}>
+                    <button
+                      onClick={() => {
+                        relation === 'cities'
+                          ? dispatch(deleteCityOperation(id))
+                          : dispatch(deleteDepartamentOperation(id));
+                        togleModul();
+                      }}
+                    >
                       Так
                     </button>
                   </>
